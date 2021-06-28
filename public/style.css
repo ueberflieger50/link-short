@@ -1,0 +1,115 @@
+:root {
+  scroll-behavior: smooth;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --header-footer-height: 4em;
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 0 6px var(--marigold);
+  border: 2px solid transparent;
+  border-radius: 5px !important;
+}
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+noscript {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background-color: hsl(0, 0%, 24%);
+  color: hsl(0, 0%, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  margin: 0;
+}
+header,
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em 0 1em;
+  height: var(--header-footer-height);
+  background-color: hsl(206, 51%, 14%);
+  color: hsl(0, 0%, 80%);
+}
+header {
+  color: hsl(0, 0%, 95%);
+}
+#header-link {
+    text-decoration: none;
+    color: inherit;
+}
+main {
+  height: calc(100vh - var(--header-footer-height) * 2 - 2em);
+  background-color: hsl(204, 48%, 19%);
+  padding: 1em;
+  color: hsl(0, 0%, 95%);
+}
+.card {
+  background-color: hsl(203, 35%, 13%);
+  box-shadow: 2px 2px 4px hsl(202, 76%, 19%);
+  border-radius: 4px;
+  margin: 1rem 0 1rem 0;
+  padding: 1em;
+}
+button {
+  background-color: hsl(43, 100%, 60%);
+  border: none;
+  padding: 0.4em;
+  margin: 0.4em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: .4s background-color;
+}
+button:hover {
+    background-color: hsl(202, 76%, 19%);
+    color:hsl(0, 0%, 95%)
+}
+input {
+  border: none;
+  padding: 0.4em;
+  margin: 0.4em;
+  border-radius: 3px;
+}
+#url-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  gap: 1em;
+  margin-top: 1em;
+}
+pre {
+  color: #d4d4d4;
+  background-color: #1e1e1e;
+  border-radius: 4px;
+  padding: 1em;
+  margin: 0;
+}
+footer a {
+  text-decoration: none;
+  color: inherit;
+}
+#made-by {
+  font-weight: bolder;
+}
+pre > a {
+  color: hsl(187, 100%, 50%);
+}
+@media (min-width: 600px) {
+  #inputs {
+    display: grid;
+    grid-template-columns: 80% 20%;
+  }
+}
+@media (max-width: 600px) {
+  input {
+    width: calc(100% - 1.6em);
+  }
+}

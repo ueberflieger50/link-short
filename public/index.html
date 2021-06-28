@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.min.js"></script>
+    <title>🔗 Link-Shortener</title>
+</head>
+
+<body>
+    <noscript>
+        <h1>You need to Enable JavaScript to see this page</h1>
+    </noscript>
+    <header>
+        <a href="/" id="header-link">
+            <h1>Link Shortener</h1>
+        </a>
+    </header>
+    <main>
+        <div class="card">
+            <form action="/api/new" method="POST">
+                <label for="newUrl">Input URL to be shortened</label><br>
+                <div id="inputs">
+                    <input type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
+                    <button type="submit" id="submit">Get Short Link</button>
+                </div>
+            </form>
+            <div id="link" v-if="linkId != null">
+                <p>Your Link:</p>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a></pre>
+            </div>
+        </div>
+        <div class="card">
+            <div id="urls">
+                <button id="all" @click="getAll">List All Entries</button>
+                <div id="url-list" v-if="urls">
+                    <pre v-for="element in urls">{{ element }}</pre>
+                    <pre v-if="urls.length === 0">No Entries Available</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <a href="https://gitea.uebie.de/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
+            <p id="made-by">Made with ❤️ by Ueberflieger</p>
+        </a>
+    </footer>
+    <script src="main.js"></script>
+</body>
+
+</html>
