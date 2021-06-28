@@ -3,14 +3,14 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --header-footer-height: 4em;
 }
 ::-webkit-scrollbar {
   background: transparent;
   width: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 0 6px var(--marigold);
+  box-shadow: inset 0 0 0 6px hsl(206, 85%, 50%);
+  background-color: inherit;
   border: 2px solid transparent;
   border-radius: 5px !important;
 }
@@ -29,6 +29,10 @@ noscript {
 }
 body {
   margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  overflow: overlay;
 }
 header,
 footer {
@@ -48,7 +52,6 @@ header {
     color: inherit;
 }
 main {
-  height: calc(100vh - var(--header-footer-height) * 2 - 2em);
   background-color: hsl(204, 48%, 19%);
   padding: 1em;
   color: hsl(0, 0%, 95%);
