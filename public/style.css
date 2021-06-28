@@ -97,6 +97,8 @@ pre {
   border-radius: 4px;
   padding: 1em;
   margin: 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;   
 }
 footer a {
   text-decoration: none;
