@@ -30,7 +30,7 @@
             </form>
             <div id="link" v-if="linkId != null">
                 <p>Your Link:</p>
-                <pre><a :href="linkUrl">{{ linkUrl }}</a></pre>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="copy">📋</span></pre>
             </div>
         </div>
         <div class="card">

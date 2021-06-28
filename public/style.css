@@ -73,6 +73,12 @@ button:hover {
     background-color: hsl(202, 76%, 19%);
     color:hsl(0, 0%, 95%)
 }
+#copy {
+  float: right;
+  margin: 0;
+  cursor: pointer;
+  transform: scale(2) translateY(-.1em);
+}
 input {
   border: none;
   padding: 0.4em;

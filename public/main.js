@@ -22,6 +22,15 @@ const app = {
             Http.onload = (e) => {
                 this.urls = JSON.parse(Http.responseText)
             }
+        },
+        copyToClipboard: function(text) {
+            if (!navigator.clipboard) {
+                alert("Sorry, but your Browser dosent support Clipboard API")
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {}, (err) => {
+                console.error('Async: Could not copy text: ', err);
+            });
         }
     }
 }
