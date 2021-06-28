@@ -27,7 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/:id', (req, res) => {
     let data = db.prepare(`SELECT link FROM links WHERE id=?`).get(req.params.id);
-    res.redirect(data.link)
+    if(data === undefined){
+        res.redirect("/")
+    }else {
+        res.redirect(data.link)
+    }
 });
 
 app.post('/api/new', (req, res) => {
