@@ -8,11 +8,12 @@ db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 	"number"	INTEGER,
 	"id"	TEXT,
 	"link"	TEXT,
+    "uses" INTEGER,
 	PRIMARY KEY("number" AUTOINCREMENT)
 );`)
 
 function newId(id) {
-    if (id == undefined) {
+    if (id == undefined || id == "") {
         id = Math.random().toString(36).slice(2, 8)
     }
     if (db.prepare(`SELECT id FROM links WHERE id=?`).get(id) !== undefined) {
@@ -30,14 +31,26 @@ app.get('/:id', (req, res) => {
     if(data === undefined){
         res.redirect("/")
     }else {
+        db.exec(`UPDATE links SET uses = uses + 1 where id='${req.params.id}'`)
         res.redirect(data.link)
     }
 });
 
 app.post('/api/new', (req, res) => {
     let id = newId(req.body.customId);
-    db.exec(`INSERT INTO links (id, link) VALUES ('${id}', '${req.body.newUrl}')`)
-    res.redirect(`/?link=${id}`);
+    let linkdb = db.prepare(`SELECT id FROM links WHERE link=?`).get(req.body.newUrl)
+    if ( linkdb !== undefined) {
+        res.redirect(`/?link=${linkdb.id}`);
+    } else {
+        db.exec(`INSERT INTO links (id, link, uses) VALUES ('${id}', '${req.body.newUrl}', '0')`)
+        res.redirect(`/?link=${id}`);
+    }
+})
+
+app.delete('/api/remove/:number', (req, res) => {
+    db.exec(`DELETE FROM links WHERE number='${req.params.number}'`)
+    let data = db.prepare(`SELECT * FROM links;`).all();
+    res.send(data)
 })
 
 app.get('/api/all', (req, res) => {

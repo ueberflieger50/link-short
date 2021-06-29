@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A simple easy to deploy link Shorter">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.prod.js"></script>
-    <title>🔗 Link-Shortener</title>
+    <title>Link-Shortener</title>
 </head>
 
 <body>
@@ -40,14 +42,14 @@
             <div id="urls">
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
-                    <pre v-for="element in urls">{{ element }}</pre>
+                    <pre v-for="element in urls"><span @click="deleteEntry(element.number)" title="Delete this entry" id="copy">❌</span>{{ element }}</pre>
                     <pre v-if="urls.length === 0">No Entries Available</pre>
                 </div>
             </div>
         </div>
     </main>
     <footer>
-        <a href="https://gitea.uebie.de/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
+        <a href="https://github.com/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
             <p id="made-by">Made with ❤️ by Ueberflieger</p>
         </a>
     </footer>

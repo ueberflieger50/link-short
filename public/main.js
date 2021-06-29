@@ -31,6 +31,14 @@ const app = {
             navigator.clipboard.writeText(text).then(() => {}, (err) => {
                 console.error('Async: Could not copy text: ', err);
             });
+        },
+        deleteEntry: function(number) {
+            Http.open("DELETE", `/api/remove/${number}`);
+            Http.send();
+
+            Http.onload = (e) => {
+                this.urls = JSON.parse(Http.responseText)
+            }
         }
     }
 }
