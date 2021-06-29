@@ -40,6 +40,12 @@ app.post('/api/new', (req, res) => {
     res.redirect(`/?link=${id}`);
 })
 
+app.delete('/api/remove/:number', (req, res) => {
+    db.exec(`DELETE FROM links WHERE number='${req.params.number}'`)
+    let data = db.prepare(`SELECT * FROM links;`).all();
+    res.send(data)
+})
+
 app.get('/api/all', (req, res) => {
     let data = db.prepare(`SELECT * FROM links;`).all();
     res.send(data)

@@ -42,7 +42,7 @@
             <div id="urls">
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
-                    <pre v-for="element in urls">{{ element }}</pre>
+                    <pre v-for="element in urls"><span @click="deleteEntry(element.number)" title="Delete this entry" id="copy">❌</span>{{ element }}</pre>
                     <pre v-if="urls.length === 0">No Entries Available</pre>
                 </div>
             </div>
