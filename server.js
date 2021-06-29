@@ -35,7 +35,7 @@ app.get('/:id', (req, res) => {
 });
 
 app.post('/api/new', (req, res) => {
-    let id = newId();
+    let id = newId(req.body.customId);
     db.exec(`INSERT INTO links (id, link) VALUES ('${id}', '${req.body.newUrl}')`)
     res.redirect(`/?link=${id}`);
 })

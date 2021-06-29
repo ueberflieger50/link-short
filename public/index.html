@@ -22,11 +22,14 @@
     <main>
         <div class="card">
             <form action="/api/new" method="POST">
-                <label for="newUrl">Input URL to be shortened</label><br>
-                <div id="inputs">
-                    <input type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
-                    <button type="submit" id="submit">Get Short Link</button>
-                </div>
+
+                <label for="newUrl" id="labelUrl">Input URL to be shortened</label>
+                <input type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
+
+                <label for="customId" id="labelId" title="If Custom ID is allready used there will be a random one generated">Input Custom ID</label>
+                <input type="text" name="customId" id="customId" placeholder="xyz">
+
+                <button type="submit" id="submit">Get Short Link</button>
             </form>
             <div id="link" v-if="linkId != null">
                 <p>Your Link:</p>
