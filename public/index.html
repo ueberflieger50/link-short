@@ -28,21 +28,27 @@
                 <label for="newUrl" id="labelUrl">Input URL to be shortened</label>
                 <input type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
 
-                <label for="customId" id="labelId" title="If Custom ID is allready used there will be a random one generated">Input Custom ID</label>
+                <label for="customId" id="labelId"
+                    title="If the Custom ID is already used there will be a random one generated">Input Custom
+                    ID</label>
                 <input type="text" name="customId" id="customId" placeholder="xyz">
 
                 <button type="submit" id="submit">Get Short Link</button>
             </form>
             <div id="link" v-if="linkId != null">
                 <p>Your Link:</p>
-                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="copy">📋</span></pre>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="icon">📋</span></pre>
             </div>
         </div>
-        <div class="card">
+        <div class="card" id="url-card">
             <div id="urls">
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
-                    <pre v-for="element in urls"><span @click="deleteEntry(element.number)" title="Delete this entry" id="copy">❌</span>{{ element }}</pre>
+                    <div v-for="element in urls" class="list-wrapper">
+                        <span @click="deleteEntry(element.number, element.link)" title="Delete this entry" class="url-icon">❌</span>
+                        <span @click="goToEntry(element.id)" title="Go to this Entry" class="url-icon" id="globe">🌐</span>
+                        <pre>{{ element }}</pre>
+                    </div>
                     <pre v-if="urls.length === 0">No Entries Available</pre>
                 </div>
             </div>

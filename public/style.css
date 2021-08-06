@@ -76,14 +76,14 @@ button:hover {
     background-color: hsl(202, 76%, 19%);
     color:hsl(0, 0%, 95%)
 }
-#copy {
+#icon {
   float: right;
   margin: 0;
   cursor: pointer;
   transform: scale(2) translateY(-.1em);
 }
 #labelId:after {
-  content: "🛈";
+  content: "\1f6c8";
   padding-left: .2em;
   cursor: help;
 }
@@ -98,6 +98,19 @@ input {
   grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
   gap: 1em;
   margin-top: 1em;
+}
+.list-wrapper {
+  position: relative;
+}
+.url-icon {
+  position: absolute;
+  right: .7em;
+  top: .7em;
+  transform: scale(2);
+  cursor: pointer;
+}
+#globe {
+  right: 3.2em;
 }
 pre {
   color: #d4d4d4;
@@ -144,5 +157,16 @@ pre > a {
 @media (max-width: 700px) {
   input {
     width: calc(100% - 1.6em);
+  }
+}
+#url-list{
+  animation: slide-down .4s ease;
+}
+@keyframes slide-down {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
   }
 }
