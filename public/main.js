@@ -32,13 +32,18 @@ const app = {
                 console.error('Async: Could not copy text: ', err);
             });
         },
-        deleteEntry: function(number) {
-            Http.open("DELETE", `/api/remove/${number}`);
-            Http.send();
-
-            Http.onload = (e) => {
-                this.urls = JSON.parse(Http.responseText)
+        deleteEntry: function(number, link) {
+            if(confirm('🗑 Are you sure you want to delete the link to: ' + link)){
+                Http.open("DELETE", `/api/remove/${number}`);
+                Http.send();
+    
+                Http.onload = (e) => {
+                    this.urls = JSON.parse(Http.responseText)
+                }
             }
+        },
+        goToEntry: function(id) {
+            window.location.href = window.origin + '/' + id;
         }
     }
 }
