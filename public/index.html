@@ -45,8 +45,15 @@
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
                     <div v-for="element in urls" class="list-wrapper">
-                        <span @click="deleteEntry(element.number, element.link)" title="Delete this entry" class="url-icon">❌</span>
-                        <span @click="goToEntry(element.id)" title="Go to this Entry" class="url-icon" id="globe">🌐</span>
+                        <span @click="deleteEntry(element.number, element.link)" title="Delete this entry"
+                            class="url-icon">
+                            ❌
+                        </span>
+                        <span title="Go to this Entry" class="url-icon" id="globe">
+                            <a :href="element.id" class="entryLink">
+                                🌐
+                            </a>
+                        </span>
                         <pre>{{ element }}</pre>
                     </div>
                     <pre v-if="urls.length === 0">No Entries Available</pre>

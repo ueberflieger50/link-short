@@ -48,8 +48,8 @@ header {
   color: hsl(0, 0%, 95%);
 }
 #header-link {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 main {
   background-color: hsl(204, 48%, 19%);
@@ -70,21 +70,21 @@ button {
   margin: 0.4em;
   border-radius: 3px;
   cursor: pointer;
-  transition: .4s background-color;
+  transition: 0.4s background-color;
 }
 button:hover {
-    background-color: hsl(202, 76%, 19%);
-    color:hsl(0, 0%, 95%)
+  background-color: hsl(202, 76%, 19%);
+  color: hsl(0, 0%, 95%);
 }
 #icon {
   float: right;
   margin: 0;
   cursor: pointer;
-  transform: scale(2) translateY(-.1em);
+  transform: scale(2) translateY(-0.1em);
 }
 #labelId:after {
   content: "\1f6c8";
-  padding-left: .2em;
+  padding-left: 0.2em;
   cursor: help;
 }
 input {
@@ -104,8 +104,8 @@ input {
 }
 .url-icon {
   position: absolute;
-  right: .7em;
-  top: .7em;
+  right: 0.7em;
+  top: 0.7em;
   transform: scale(2);
   cursor: pointer;
 }
@@ -122,6 +122,10 @@ pre {
   white-space: pre-wrap;
   height: calc(100% - 2em);
 }
+.entryLink {
+  color: #00bdef;
+  text-decoration: none;
+}
 footer a {
   text-decoration: none;
   color: inherit;
@@ -136,7 +140,7 @@ pre > a {
   form {
     display: grid;
     align-items: center;
-    grid-template: 1fr 1fr / 50% 30% 20% ;
+    grid-template: 1fr 1fr / 50% 30% 20%;
     grid-template-areas: "label-url label-id label-submit" "url id submit";
   }
   #labelId {
@@ -160,14 +164,14 @@ pre > a {
     width: calc(100% - 1.6em);
   }
 }
-#url-list{
-  animation: slide-down .4s ease;
+#url-list {
+  animation: slide-down 0.4s ease;
 }
 @keyframes slide-down {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
