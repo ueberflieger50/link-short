@@ -23,7 +23,7 @@ function newId(id) {
 }
 
 app.use('/', express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get('/:id', (req, res) => {
     if(req.params.id === "robots.txt") res.send('');
@@ -40,7 +40,7 @@ app.post('/api/new', (req, res) => {
     const id = newId(req.body.customId);
     const linkdb = db.prepare(`SELECT id FROM links WHERE link=?`).get(req.body.newUrl);
     if ( linkdb !== undefined) {
-        res.redirect(`/?link=${linkdb.id}`);
+        res.send(id);
     } else {
         db.prepare(`INSERT INTO links (id, link, uses) VALUES (?, ?, ?)`).run(id, req.body.newUrl, 0);
         res.send(id);

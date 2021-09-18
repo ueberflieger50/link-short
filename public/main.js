@@ -1,19 +1,31 @@
-let url = new URL(window.location.href);
-
 const app = {
   data() {
     return {
-      linkId: url.searchParams.get("link"),
-      currUrl: window.location.href.split("?")[0],
+      formData: {},
+      shortUrl: null,
       urls: null,
     };
   },
   computed: {
     linkUrl() {
-      return this.currUrl + this.linkId;
+      if(this.shortUrl) return window.location.href + this.shortUrl;
     },
   },
   methods: {
+    createNewLink: function () {
+      // console.log(JSON.stringify(this.formData));
+      fetch('/api/new', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.formData)
+      }).then(res => res.text()).then((res) =>{
+        this.shortUrl = res;
+        delete this.formData.newUrl;
+        delete this.formData.customId;
+      });
+    },
     getAll: function () {
       fetch('/api/all').then(res => res.json()).then(res => {
         this.urls = res;
