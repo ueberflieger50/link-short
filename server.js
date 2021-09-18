@@ -1,20 +1,19 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 const db = require('better-sqlite3')('links.db');
 const bodyParser = require('body-parser');
 
 db.exec(`CREATE TABLE IF NOT EXISTS "links" (
-	"number"	INTEGER,
-	"id"	TEXT,
-	"link"	TEXT,
-    "uses" INTEGER,
-	PRIMARY KEY("number" AUTOINCREMENT)
-);`)
+	"id"	TEXT NOT NULL UNIQUE,
+	"link"	TEXT NOT NULL,
+	"uses"	INTEGER,
+	PRIMARY KEY("id")
+);`);
 
 function newId(id) {
-    if (id == undefined || id == "") {
-        id = Math.random().toString(36).slice(2, 8)
+    if (!id) {
+        id = Math.random().toString(36).slice(2, 8);
     }
     if (db.prepare(`SELECT id FROM links WHERE id=?`).get(id) !== undefined) {
         return newId();
@@ -23,41 +22,45 @@ function newId(id) {
     }
 }
 
-app.use('/', express.static(__dirname + '/public'))
+app.use('/', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/:id', (req, res) => {
-    let data = db.prepare(`SELECT link FROM links WHERE id=?`).get(req.params.id);
-    if(data === undefined){
-        res.redirect("/")
+    if(req.params.id === "robots.txt") res.send('');
+    const redirect = db.prepare(`SELECT link FROM links WHERE id=?`).get(req.params.id);
+    if(redirect === undefined){
+        res.redirect("/");
     }else {
-        db.exec(`UPDATE links SET uses = uses + 1 where id='${req.params.id}'`)
-        res.redirect(data.link)
+        db.prepare(`UPDATE links SET uses = uses + 1 where id=?`).run(req.params.id);
+        res.redirect(redirect.link);
     }
 });
 
 app.post('/api/new', (req, res) => {
-    let id = newId(req.body.customId);
-    let linkdb = db.prepare(`SELECT id FROM links WHERE link=?`).get(req.body.newUrl)
+    const id = newId(req.body.customId);
+    const linkdb = db.prepare(`SELECT id FROM links WHERE link=?`).get(req.body.newUrl);
     if ( linkdb !== undefined) {
         res.redirect(`/?link=${linkdb.id}`);
     } else {
-        db.exec(`INSERT INTO links (id, link, uses) VALUES ('${id}', '${req.body.newUrl}', '0')`)
-        res.redirect(`/?link=${id}`);
+        db.prepare(`INSERT INTO links (id, link, uses) VALUES (?, ?, ?)`).run(id, req.body.newUrl, 0);
+        res.send(id);
     }
-})
+});
 
-app.delete('/api/remove/:number', (req, res) => {
-    db.exec(`DELETE FROM links WHERE number='${req.params.number}'`)
-    let data = db.prepare(`SELECT * FROM links;`).all();
-    res.send(data)
-})
+function sendAllLinks() {
+    const data = db.prepare(`SELECT * FROM links;`).all();
+    return data;
+}
+
+app.delete('/api/remove/:id', (req, res) => {
+    db.prepare(`DELETE FROM links WHERE id=?`).run(req.params.id);
+    res.send(sendAllLinks());
+});
 
 app.get('/api/all', (req, res) => {
-    let data = db.prepare(`SELECT * FROM links;`).all();
-    res.send(data)
-})
+    res.send(sendAllLinks());
+});
 
 app.listen(port, () => {
-    console.log(`🔗 Link Shortener listening at http://localhost:${port}`)
-})
+    console.log(`🔗 Link Shortener listening at http://localhost:${port}`);
+});
