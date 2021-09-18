@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const db = require('better-sqlite3')('links.db');
-const bodyParser = require('body-parser');
 
 db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 	"id"	TEXT NOT NULL UNIQUE,
@@ -23,7 +22,7 @@ function newId(id) {
 }
 
 app.use('/', express.static(__dirname + '/public'));
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/:id', (req, res) => {
     if(req.params.id === "robots.txt") res.send('');
