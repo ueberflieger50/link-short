@@ -1,5 +1,3 @@
-const Http = new XMLHttpRequest();
-
 let url = new URL(window.location.href);
 
 const app = {
@@ -17,12 +15,9 @@ const app = {
   },
   methods: {
     getAll: function () {
-      Http.open("GET", "/api/all");
-      Http.send();
-
-      Http.onload = (e) => {
-        this.urls = JSON.parse(Http.responseText);
-      };
+      fetch('/api/all').then(res => res.json()).then(res => {
+        this.urls = res;
+      });
     },
     copyToClipboard: function (text) {
       if (!navigator.clipboard) {
@@ -38,12 +33,9 @@ const app = {
     },
     deleteEntry: function (id, link) {
       if (confirm("🗑 Are you sure you want to delete the link to: " + link)) {
-        Http.open("DELETE", `/api/remove/${id}`);
-        Http.send();
-
-        Http.onload = (e) => {
-          this.urls = JSON.parse(Http.responseText);
-        };
+        fetch(`/api/remove/${id}`, { method: 'DELETE'}).then(res => res.json()).then((res) => {
+          this.urls = res;
+        });
       }
     },
   },
