@@ -45,7 +45,7 @@
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
                     <div v-for="element in urls" class="list-wrapper">
-                        <span @click="deleteEntry(element.number, element.link)" title="Delete this entry"
+                        <span @click="deleteEntry(element.id, element.link)" title="Delete this entry"
                             class="url-icon">
                             ❌
                         </span>

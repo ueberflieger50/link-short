@@ -36,9 +36,9 @@ const app = {
         }
       );
     },
-    deleteEntry: function (number, link) {
+    deleteEntry: function (id, link) {
       if (confirm("🗑 Are you sure you want to delete the link to: " + link)) {
-        Http.open("DELETE", `/api/remove/${number}`);
+        Http.open("DELETE", `/api/remove/${id}`);
         Http.send();
 
         Http.onload = (e) => {
