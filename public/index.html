@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.min.js"></script>
+    <script src="main.js" defer></script>
     <title>Link-Shortener</title>
 </head>
 
@@ -20,12 +21,12 @@
         <a href="/" id="header-link">
             <h1>Link Shortener</h1>
         </a>
+        <p v-if="user.isLoggedIn">You are logged in</p>
+        <button v-else @click="openModal()" class="auth-type">{{ user.type }}</button>
     </header>
     <main>
         <div class="card">
-            <form @submit.prevent="createNewLink" autocomplete="off">
-            <!-- <form action="/api/new" method="POST"> -->
-
+            <form @submit.prevent="createNewLink" autocomplete="off" class="link-form">
                 <label for="newUrl" id="labelUrl">Input URL to be shortened</label>
                 <input v-model="formData.newUrl" type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
 
@@ -34,7 +35,7 @@
                     ID</label>
                 <input v-model="formData.customId" type="text" name="customId" id="customId" placeholder="xyz">
 
-                <button type="submit" id="submit">Get Short Link</button>
+                <button type="submit" id="url-submit">Get Short Link</button>
             </form>
             <div id="link" v-if="linkUrl != null">
                 <p>Your Link:</p>
@@ -61,13 +62,28 @@
                 </div>
             </div>
         </div>
+        <div class="modal">
+            <div class="modal-content">
+                <h1 class="modal-title">{{ user.type }}</h1>
+                <form @submit.prevent="authorize" class="user-form">
+            
+                        <label for="username">Username</label>
+                        <input v-model="user.username" type="text" name="username" id="username" required>
+    
+                        <label for="password">Password</label>
+                        <input v-model="user.password" type="password" name="password" id="password" required>
+           
+                        <button class="auth-type" type="submit" id="user-submit">{{ user.type }}</button>
+                    </form>
+                <button @click="closeModal()" class="secondary">Close</button>
+            </div>
+        </div>
     </main>
     <footer>
         <a href="https://github.com/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
             <p id="made-by">Made with ❤️ by Ueberflieger</p>
         </a>
     </footer>
-    <script src="main.js"></script>
 </body>
 
 </html>

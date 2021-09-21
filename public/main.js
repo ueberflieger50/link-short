@@ -4,6 +4,9 @@ const app = {
       formData: {},
       shortUrl: null,
       urls: null,
+      user: {
+        type: "login"
+      }
     };
   },
   computed: {
@@ -50,6 +53,16 @@ const app = {
         });
       }
     },
+    openModal: function () {
+      document.querySelector('.modal').classList.add('active');
+    },
+    closeModal: function () {
+      document.querySelector('.modal').classList.remove('active');
+    },
+    authorize: function() {
+      delete this.user.password;
+      delete this.user.username;
+    }
   },
 };
-Vue.createApp(app).mount("main");
+Vue.createApp(app).mount("body");

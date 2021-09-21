@@ -76,6 +76,14 @@ button:hover {
   background-color: hsl(202, 76%, 19%);
   color: hsl(0, 0%, 95%);
 }
+.secondary {
+  background-color: hsl(0, 100%, 40%);
+  color: hsl(0, 0%, 95%);
+}
+.secondary:hover {
+  background-color: hsl(20, 100%, 50%);
+  color: hsl(0, 0%, 5%);
+}
 #icon {
   float: right;
   margin: 0;
@@ -89,9 +97,15 @@ button:hover {
 }
 input {
   border: none;
-  padding: 0.4em;
-  margin: 0.4em;
+  padding: 0.5em;
+  margin: 0.5em;
   border-radius: 3px;
+  background-color: #073D44;
+  color: #fafafa;
+  /* border-bottom: 4px solid #0F1415; */
+}
+input::placeholder {
+  color: #cccccc;
 }
 #url-list {
   display: grid;
@@ -137,7 +151,7 @@ pre > a {
   color: hsl(187, 100%, 50%);
 }
 @media (min-width: 700px) {
-  form {
+  .link-form {
     display: grid;
     align-items: center;
     grid-template: 1fr 1fr / 50% 30% 20%;
@@ -155,7 +169,7 @@ pre > a {
   #customId {
     grid-area: id;
   }
-  #submit {
+  #url-submit {
     grid-area: submit;
   }
 }
@@ -174,4 +188,41 @@ pre > a {
   100% {
     opacity: 1;
   }
+}
+.auth-type {
+  text-transform: capitalize;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: #0f1415a2;
+  transition: opacity .2s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-content {
+  background-color: hsl(204, 50%, 20%);
+  position: relative;
+  padding: 1em;
+  max-width: fit-content;
+  margin: 5rem auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.75em;
+  box-shadow: 0px 0px 4px hsl(0, 0%, 35%);
+  z-index: 20;
+  transform: scale(1.2);
+}
+.modal-title {
+  text-transform: capitalize;
+  margin-top: 0;
+}
+.user-form {
+  display: flex;
+  flex-direction: column;
 }
