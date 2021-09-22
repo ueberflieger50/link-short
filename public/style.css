@@ -222,7 +222,13 @@ pre > a {
   text-transform: capitalize;
   margin-top: 0;
 }
+.user-error {
+  color: hsl(0, 100%, 40%);
+}
 .user-form {
   display: flex;
   flex-direction: column;
+}
+.buttons *{
+  width: calc(50% - 0.8em);
 }

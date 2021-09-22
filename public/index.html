@@ -21,8 +21,8 @@
         <a href="/" id="header-link">
             <h1>Link Shortener</h1>
         </a>
-        <p v-if="user.isLoggedIn">You are logged in</p>
-        <button v-else @click="openModal()" class="auth-type">{{ user.type }}</button>
+        <p v-if="user.isLoggedIn">You are logged in as <code>{{user.username}}</code> <button @click="logout()">Log out</button></p>
+        <button v-else @click="openModal()" class="auth-type">Register / Login</button>
     </header>
     <main>
         <div class="card">
@@ -42,7 +42,7 @@
                 <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="icon">📋</span></pre>
             </div>
         </div>
-        <div class="card" id="url-card">
+        <div class="card" id="url-card" v-if="user.isLoggedIn">
             <div id="urls">
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
@@ -64,16 +64,20 @@
         </div>
         <div class="modal">
             <div class="modal-content">
-                <h1 class="modal-title">{{ user.type }}</h1>
-                <form @submit.prevent="authorize" class="user-form">
+                <h1 class="modal-title">Register / Login</h1>
+                <p class="user-error">{{ user.error }}</p>
+                <form @submit.prevent="" class="user-form">
             
                         <label for="username">Username</label>
                         <input v-model="user.username" type="text" name="username" id="username" required>
     
                         <label for="password">Password</label>
                         <input v-model="user.password" type="password" name="password" id="password" required>
-           
-                        <button class="auth-type" type="submit" id="user-submit">{{ user.type }}</button>
+                        
+                        <div class="buttons">
+                            <button @click="authorize('login')" class="auth-type" type="submit" id="user-login">Login</button>
+                            <button @click="authorize('register')" class="auth-type" type="submit" id="user-register">Register</button>
+                        </div>
                     </form>
                 <button @click="closeModal()" class="secondary">Close</button>
             </div>
