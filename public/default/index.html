@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A simple easy to deploy link Shorter">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="shortcut icon" href="/static/favicon.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.min.js"></script>
+    <script src="main.js" defer></script>
+    <title>Link-Shortener</title>
+</head>
+
+<body>
+    <noscript>
+        <h1>You need to Enable JavaScript to see this page</h1>
+    </noscript>
+    <header>
+        <a href="/" id="header-link">
+            <h1>Link Shortener</h1>
+        </a>
+        <button @click="openModal()" class="auth-type">Register / Login</button>
+    </header>
+    <main>
+        <div class="card">
+            <form @submit.prevent="createNewLink" autocomplete="off" class="link-form">
+                <label for="newUrl" id="labelUrl">Input URL to be shortened</label>
+                <input v-model="formData.newUrl" type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
+
+                <label for="customId" id="labelId"
+                    title="If the Custom ID is already used there will be a random one generated">Input Custom
+                    ID</label>
+                <input v-model="formData.customId" type="text" name="customId" id="customId" placeholder="xyz">
+
+                <button type="submit" id="url-submit">Get Short Link</button>
+            </form>
+            <div id="link" v-if="linkUrl != null">
+                <p>Your Link:</p>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="icon">📋</span></pre>
+            </div>
+        </div>
+        <div class="modal">
+            <div class="modal-content">
+                <h1 class="modal-title">Register / Login</h1>
+                <p class="user-error">{{ user.error }}</p>
+                <form @submit.prevent="" class="user-form">
+            
+                        <label for="username">Username</label>
+                        <input v-model="user.username" type="text" name="username" id="username" required>
+    
+                        <label for="password">Password</label>
+                        <input v-model="user.password" type="password" name="password" id="password" required>
+                        
+                        <div class="buttons">
+                            <button @click="authorize('login')" class="auth-type" type="submit" id="user-login">Login</button>
+                            <button @click="authorize('register')" class="auth-type" type="submit" id="user-register">Register</button>
+                        </div>
+                    </form>
+                <button @click="closeModal()" class="secondary">Close</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <a href="https://github.com/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
+            <p id="made-by">Made with ❤️ by Ueberflieger</p>
+        </a>
+    </footer>
+</body>
+
+</html>
