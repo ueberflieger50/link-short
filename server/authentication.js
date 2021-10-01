@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const functions = require("./functions");
 
 router.get("/isloggedin", (req, res) => {
-  if (req.isAuthenticated() && req.user.role === "admin") {
+  if (req.isAuthenticated()) {
     res.send([true, req.user.username]);
   } else {
     res.send(false);
@@ -15,10 +15,11 @@ router.get("/isloggedin", (req, res) => {
 });
 
 router.post("/register", functions.checkNotAuthenticated, async (req, res) => {
-  const usernames = db.prepare(`SELECT username FROM users`).all();
-  if (usernames.length < 1) {
+  const usernames = db.prepare(`SELECT username FROM users WHERE username = ?`).get(req.body.username);
+  if (usernames === undefined) {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      console.log(db.prepare(`SELECT * FROM users LIMIT 1`).all());
       if (db.prepare(`SELECT * FROM users LIMIT 1`).all().length > 0) {
         db.prepare(
           `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`

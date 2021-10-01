@@ -19,8 +19,8 @@ db.exec(`CREATE TABLE IF NOT EXISTS "users" (
 db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 	"id"	TEXT NOT NULL UNIQUE,
 	"link"	TEXT NOT NULL,
-	"uses"	INTEGER,
-	"owner"	TEXT,
+	"uses"	INTEGER DEFAULT 0,
+	"owner"	INTEGER,
 	PRIMARY KEY("id"),
   FOREIGN KEY (owner) REFERENCES users(id) -- Hmmm something will come here
 );`);

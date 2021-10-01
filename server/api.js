@@ -23,18 +23,24 @@ router.post("/new", (req, res) => {
   if (linkdb !== undefined) {
     res.send(id);
   } else {
-    db.prepare(`INSERT INTO links (id, link, uses) VALUES (?, ?, ?)`).run(
+    console.log(req.user?.id );
+    db.prepare(`INSERT INTO links (id, link, owner) VALUES (?, ?, ?)`).run(
       id,
       req.body.newUrl,
-      0
+      req.user?.id || null
     );
     res.send(id);
   }
 });
 
-function sendAllLinks() {
-  const data = db.prepare(`SELECT * FROM links;`).all();
-  return data;
+function sendAllLinks(user) {
+  let data;
+  if(!user) {
+    data = db.prepare(`SELECT * FROM links;`).all();
+  } else {
+    data = db.prepare(`SELECT * FROM links WHERE owner = ?;`).all(user);
+  }
+  return data || [];
 }
 
 router.delete("/remove/:id", functions.checkAuthenticated, (req, res) => {
@@ -44,6 +50,10 @@ router.delete("/remove/:id", functions.checkAuthenticated, (req, res) => {
 
 router.get("/all", functions.checkAdminAuthenticated, (req, res) => {
   res.send(sendAllLinks());
+});
+
+router.get("/my", functions.checkAuthenticated, (req, res) => {
+  res.send(sendAllLinks(req.user.id));
 });
 
 module.exports = router;
