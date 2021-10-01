@@ -27,16 +27,6 @@ db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 
 app.use(express.json());
 
-// app.get("/*", (req, res) => {
-//   if (req.isAuthenticated() && req.user.role === "admin") {
-//     res.sendFile(path.resolve("/../public/default/index.html");
-//   } else if (req.isAuthenticated()) {
-//     res.sendFile(path.resolve("/../public/default/index.html");
-//   } else {
-//     res.sendFile(path.resolve("/../public/default/index.html");
-//   }
-// });
-
 // ======================= User Authentication ============================
 app.use(
   session({
@@ -67,15 +57,6 @@ const authentication = require("./authentication");
 app.use("/auth", authentication);
 
 // ========================================================================
-app.use(function (req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log("✔️ Request authenticated");
-  } else {
-    console.log("❌ Not authenticated");
-  }
-  console.log(req.user);
-  next();
-});
 
 app.get('/', (req, res) => {
   if (req.isAuthenticated() && req.user.role === "admin") {
