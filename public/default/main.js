@@ -44,6 +44,7 @@ const app = {
     },
     openModal: function () {
       document.querySelector(".modal").classList.add("active");
+      document.querySelector("#username").focus();
     },
     closeModal: function () {
       document.querySelector(".modal").classList.remove("active");
@@ -67,9 +68,8 @@ const app = {
               // Reload Paget to provied page for loged in users
               location.reload();
             } else {
-              alert(
-                "There was some problem while trying to authenticate you. An errormessage was loged to the console"
-              );
+              alert("Your username or password was incorrect");
+              document.querySelector("#login").focus();
             }
           })
           .catch((err) => {
@@ -77,10 +77,11 @@ const app = {
               "There was some problem while trying to authenticate you. An errormessage was loged to the console"
             );
             console.log(err);
+            document.querySelector("#login").focus();
           });
-        // Delete temporaryly stored password and username
-        delete this.user.username;
-        delete this.user.password;
+          // Delete temporaryly stored password and username
+          delete this.user.username;
+          delete this.user.password;
       } else if (type == "register") {
         // Register User
         fetch("/auth/register", {
@@ -95,22 +96,20 @@ const app = {
         })
           .then((res) => {
             this.closeModal();
+            document.querySelector("#login").focus();
           })
           .catch((err) => {
             alert(
               "There was some problem while trying to create your user. An errormessage was loged to the console"
             );
             console.log(err);
+            document.querySelector("#login").focus();
           });
-        // Delete temporaryly stored password and username
-        delete this.user.username;
-        delete this.user.password;
-      }
+          // Delete temporaryly stored password and username
+          delete this.user.username;
+          delete this.user.password;
+        }
     },
   },
 };
 Vue.createApp(app).mount("body");
-
-function authenticateUser(username, password) {}
-
-function registerUser(username, password) {}
