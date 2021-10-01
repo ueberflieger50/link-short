@@ -33,6 +33,7 @@ body {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   overflow: overlay;
+  font-size: 1rem;
 }
 header,
 footer {
@@ -209,6 +210,7 @@ pre > a {
   position: relative;
   padding: 1em;
   max-width: fit-content;
+  max-width: -moz-fit-content;
   margin: 5rem auto;
   display: flex;
   align-items: center;
