@@ -19,7 +19,6 @@ router.post("/register", functions.checkNotAuthenticated, async (req, res) => {
   if (usernames === undefined) {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      console.log(db.prepare(`SELECT * FROM users LIMIT 1`).all());
       if (db.prepare(`SELECT * FROM users LIMIT 1`).all().length > 0) {
         db.prepare(
           `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`
