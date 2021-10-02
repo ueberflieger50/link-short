@@ -17,13 +17,20 @@ function newId(id) {
 
 router.post("/new", (req, res) => {
   const id = newId(req.body.customId);
-  const linkdb = db
-    .prepare(`SELECT id FROM links WHERE link=?`)
-    .get(req.body.newUrl);
+  const linkdb = (() => {
+    if (req.user) {
+      return db
+        .prepare(`SELECT id FROM links WHERE link=? AND owner = ?`)
+        .get(req.body.newUrl, req.user.id);
+    } else {
+      return db
+        .prepare(`SELECT id FROM links WHERE link=? AND owner IS NULL`)
+        .get(req.body.newUrl);
+    }
+  })();
   if (linkdb !== undefined) {
-    res.send(id);
+    res.send(linkdb.id);
   } else {
-    console.log(req.user?.id );
     db.prepare(`INSERT INTO links (id, link, owner) VALUES (?, ?, ?)`).run(
       id,
       req.body.newUrl,
@@ -35,7 +42,7 @@ router.post("/new", (req, res) => {
 
 function sendAllLinks(user) {
   let data;
-  if(!user) {
+  if (!user) {
     data = db.prepare(`SELECT * FROM links;`).all();
   } else {
     data = db.prepare(`SELECT * FROM links WHERE owner = ?;`).all(user);
@@ -45,7 +52,11 @@ function sendAllLinks(user) {
 
 router.delete("/remove/:id", functions.checkAuthenticated, (req, res) => {
   db.prepare(`DELETE FROM links WHERE id=?`).run(req.params.id);
-  res.send(sendAllLinks());
+  if (req.isAuthenticated() && req.user.role === "admin") {
+    res.send(sendAllLinks());
+  } else {
+    res.send(sendAllLinks(req.user.id));
+  }
 });
 
 router.get("/all", functions.checkAdminAuthenticated, (req, res) => {
