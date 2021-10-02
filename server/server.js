@@ -1,9 +1,10 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const minify = require("express-minify");
+const nocache = require('nocache');
 const db = require("better-sqlite3")("links.db");
 const app = express();
 const port = 3000;
@@ -26,6 +27,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 
 app.use(express.json());
 app.use(minify());
+app.use(nocache());
 
 // ======================= User Authentication ============================
 app.use(
