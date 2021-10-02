@@ -1,0 +1,49 @@
+.danger {
+  background-color: hsl(0, 100%, 40%);
+  color: hsl(0, 0%, 95%);
+}
+.danger:hover {
+  background-color: hsl(0, 100%, 30%);
+}
+/* Modal Styles */
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: #0f1415a2;
+  transition: opacity .2s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-content {
+  background-color: hsl(204, 50%, 20%);
+  position: relative;
+  padding: 1em;
+  max-width: fit-content;
+  max-width: -moz-fit-content;
+  margin: 5rem auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.75em;
+  box-shadow: 0px 0px 4px hsl(0, 0%, 35%);
+  z-index: 20;
+  transform: scale(1.2);
+}
+.modal-title {
+  margin-top: 0;
+}
+/* Login Form Styles */
+.user-error {
+  color: hsl(0, 100%, 40%);
+}
+.user-form {
+  display: flex;
+  flex-direction: column;
+}
+.buttons *{
+  width: calc(50% - 0.8em);
+}

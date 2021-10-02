@@ -1,0 +1,24 @@
+.user-control {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+#url-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  gap: 1em;
+  margin-top: 1em;
+}
+.list-wrapper {
+  position: relative;
+}
+.url-icon {
+  position: absolute;
+  right: 0.7em;
+  top: 0.7em;
+  transform: scale(2);
+  cursor: pointer;
+}
+.globe {
+  right: 3.2em;
+}
