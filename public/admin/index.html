@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A simple easy to deploy link Shorter">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/auth.css">
+    <link rel="shortcut icon" href="/static/favicon.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.prod.js"></script>
+    <script src="main.js" defer></script>
     <title>Link-Shortener</title>
 </head>
 
@@ -20,24 +22,31 @@
         <a href="/" id="header-link">
             <h1>Link Shortener</h1>
         </a>
+        <div class="user-control">
+            <p class="user-name">
+                Welcome
+                <b>{{user.username}}</b>
+            </p>
+            <button @click="logout()">Sign out</button>
+        </div>
     </header>
     <main>
         <div class="card">
-            <form action="/api/new" method="POST">
-
+            <form @submit.prevent="createNewLink" autocomplete="off" class="link-form">
                 <label for="newUrl" id="labelUrl">Input URL to be shortened</label>
-                <input type="url" name="newUrl" id="newUrl" placeholder="https://example.com" required>
+                <input v-model="formData.newUrl" type="url" name="newUrl" id="newUrl" placeholder="https://example.com"
+                    required>
 
                 <label for="customId" id="labelId"
                     title="If the Custom ID is already used there will be a random one generated">Input Custom
                     ID</label>
-                <input type="text" name="customId" id="customId" placeholder="xyz">
+                <input v-model="formData.customId" type="text" name="customId" id="customId" placeholder="xyz">
 
-                <button type="submit" id="submit">Get Short Link</button>
+                <button type="submit" id="url-submit">Get Short Link</button>
             </form>
-            <div id="link" v-if="linkId != null">
+            <div id="link" v-if="linkUrl != null">
                 <p>Your Link:</p>
-                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="icon">📋</span></pre>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" class="copy-icon">📋</span></pre>
             </div>
         </div>
         <div class="card" id="url-card">
@@ -45,11 +54,10 @@
                 <button id="all" @click="getAll">List All Entries</button>
                 <div id="url-list" v-if="urls">
                     <div v-for="element in urls" class="list-wrapper">
-                        <span @click="deleteEntry(element.number, element.link)" title="Delete this entry"
-                            class="url-icon">
+                        <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="url-icon">
                             ❌
                         </span>
-                        <span title="Go to this Entry" class="url-icon" id="globe">
+                        <span title="Go to this Entry" class="url-icon globe">
                             <a :href="element.id" class="entryLink">
                                 🌐
                             </a>
@@ -65,8 +73,10 @@
         <a href="https://github.com/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
             <p id="made-by">Made with ❤️ by Ueberflieger</p>
         </a>
+        <p>
+            You are logged in as an Admin
+        </p>
     </footer>
-    <script src="main.js"></script>
 </body>
 
 </html>
