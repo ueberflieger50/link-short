@@ -77,15 +77,7 @@ button:hover {
   background-color: hsl(202, 76%, 19%);
   color: hsl(0, 0%, 95%);
 }
-.secondary {
-  background-color: hsl(0, 100%, 40%);
-  color: hsl(0, 0%, 95%);
-}
-.secondary:hover {
-  background-color: hsl(20, 100%, 50%);
-  color: hsl(0, 0%, 5%);
-}
-#icon {
+.copy-icon {
   float: right;
   margin: 0;
   cursor: pointer;
@@ -107,25 +99,6 @@ input {
 }
 input::placeholder {
   color: #cccccc;
-}
-#url-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-  gap: 1em;
-  margin-top: 1em;
-}
-.list-wrapper {
-  position: relative;
-}
-.url-icon {
-  position: absolute;
-  right: 0.7em;
-  top: 0.7em;
-  transform: scale(2);
-  cursor: pointer;
-}
-#globe {
-  right: 3.2em;
 }
 pre {
   color: #d4d4d4;
@@ -189,48 +162,4 @@ pre > a {
   100% {
     opacity: 1;
   }
-}
-.auth-type {
-  text-transform: capitalize;
-}
-.modal {
-  position: fixed;
-  inset: 0;
-  background-color: #0f1415a2;
-  transition: opacity .2s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-}
-.modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-.modal-content {
-  background-color: hsl(204, 50%, 20%);
-  position: relative;
-  padding: 1em;
-  max-width: fit-content;
-  max-width: -moz-fit-content;
-  margin: 5rem auto;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 0.75em;
-  box-shadow: 0px 0px 4px hsl(0, 0%, 35%);
-  z-index: 20;
-  transform: scale(1.2);
-}
-.modal-title {
-  text-transform: capitalize;
-  margin-top: 0;
-}
-.user-error {
-  color: hsl(0, 100%, 40%);
-}
-.user-form {
-  display: flex;
-  flex-direction: column;
-}
-.buttons *{
-  width: calc(50% - 0.8em);
 }

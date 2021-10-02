@@ -46,7 +46,7 @@
             </form>
             <div id="link" v-if="linkUrl != null">
                 <p>Your Link:</p>
-                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="icon">📋</span></pre>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" calss="copy-icon">📋</span></pre>
             </div>
         </div>
         <div class="card" id="url-card">
@@ -57,7 +57,7 @@
                         <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="url-icon">
                             ❌
                         </span>
-                        <span title="Go to this Entry" class="url-icon" id="globe">
+                        <span title="Go to this Entry" class="url-icon globe">
                             <a :href="element.id" class="entryLink">
                                 🌐
                             </a>

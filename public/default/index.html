@@ -7,6 +7,7 @@
     <meta name="description" content="A simple easy to deploy link Shorter">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/home.css">
     <link rel="shortcut icon" href="/static/favicon.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.min.js"></script>
     <script src="main.js" defer></script>
@@ -38,7 +39,7 @@
             </form>
             <div id="link" v-if="linkUrl != null">
                 <p>Your Link:</p>
-                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" id="icon">📋</span></pre>
+                <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" class="copy-icon">📋</span></pre>
             </div>
         </div>
         <div class="modal">
@@ -58,7 +59,7 @@
                             <button @click="authorize('register')" class="auth-type" type="submit" id="user-register">Register</button>
                         </div>
                     </form>
-                <button @click="closeModal()" class="secondary">Close</button>
+                <button @click="closeModal()" class="danger">Close</button>
             </div>
         </div>
     </main>
