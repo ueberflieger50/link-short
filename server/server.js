@@ -1,13 +1,12 @@
 require("dotenv").config({ path: "../.env" });
-const path = require('path');
+const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
+const minify = require("express-minify");
 const db = require("better-sqlite3")("links.db");
 const app = express();
 const port = 3000;
-
-const functions = require("./functions");
 
 db.exec(`CREATE TABLE IF NOT EXISTS "users" (
   "id"	INTEGER NOT NULL UNIQUE,
@@ -26,6 +25,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 );`);
 
 app.use(express.json());
+app.use(minify());
 
 // ======================= User Authentication ============================
 app.use(
@@ -58,19 +58,19 @@ app.use("/auth", authentication);
 
 // ========================================================================
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   if (req.isAuthenticated() && req.user.role === "admin") {
-   res.sendFile(path.resolve("../public/admin/index.html"));
-  }else if (req.isAuthenticated()) {
+    res.sendFile(path.resolve("../public/admin/index.html"));
+  } else if (req.isAuthenticated()) {
     res.sendFile(path.resolve("../public/secure/index.html"));
   } else {
     res.sendFile(path.resolve("../public/default/index.html"));
   }
 });
-app.get('/main.js', (req, res) => {
+app.get("/main.js", (req, res) => {
   if (req.isAuthenticated() && req.user.role === "admin") {
-   res.sendFile(path.resolve("../public/admin/main.js"));
-  }else if (req.isAuthenticated()) {
+    res.sendFile(path.resolve("../public/admin/main.js"));
+  } else if (req.isAuthenticated()) {
     res.sendFile(path.resolve("../public/secure/main.js"));
   } else {
     res.sendFile(path.resolve("../public/default/main.js"));
