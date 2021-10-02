@@ -79,7 +79,10 @@ app.get('/main.js', (req, res) => {
 app.use("/static", express.static(path.resolve("../static")));
 // ======================= Api Routes =====================================
 app.get("/:id", (req, res) => {
-  if (req.params.id === "robots.txt") res.send("");
+  if (req.params.id == "robots.txt") {
+    res.send("");
+    return;
+  }
   const redirect = db
     .prepare(`SELECT link FROM links WHERE id=?`)
     .get(req.params.id);
