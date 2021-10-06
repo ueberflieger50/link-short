@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/auth.css">
-    <!-- <link rel="stylesheet" href="/static/user.css"> -->
     <link rel="shortcut icon" href="/static/favicon.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/vue@3.1.1/dist/vue.global.min.js"></script>
     <script src="main.js" defer></script>
@@ -55,35 +54,16 @@
                 <button id="all" @click="getMy">List My Entries</button>
                 <div id="url-list" v-if="urls">
                     <div v-for="element in urls" class="list-wrapper">
-                        <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="url-icon">
-                            ❌
-                        </span>
-                        <span title="Go to this Entry" class="url-icon globe">
-                            <a :href="element.id" class="entryLink">
-                                🌐
-                            </a>
-                        </span>
-                        <pre>{{ element }}</pre>
-                        <!-- <div class="link-card">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <td>id</td>
-                                        <td>url</td>
-                                        <td>uses</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{element.id}}</td>
-                                        <td>{{element.link}}</td>
-                                        <td>{{element.uses}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a :href="element.id"><button>Got to url</button></a>
-                            <button @click="dleteEntry(element.id, element.link)">Delete this entry</button>
-                        </div> -->
+                            <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="url-icon">
+                                ❌
+                            </span>
+                            <span title="Go to this Entry" class="url-icon globe">
+                                <a :href="element.id" class="entryLink">
+                                    🌐
+                                </a>
+                            </span>
+                            <pre>link: {{ entryUrl(element.id) }}<br>destination: {{element.link}}<br>uses: {{element.uses}}</pre>
+                    <pre v-if="urls.length === 0">No Entries Available</pre>
                     </div>
                     <pre v-if="urls.length === 0">No Entries Available</pre>
                 </div>

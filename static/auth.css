@@ -21,6 +21,12 @@
   transform: scale(2);
   cursor: pointer;
 }
+.entryLink {
+  text-decoration: none;
+}
 .globe {
   right: 3.2em;
+}
+#url-list {
+  animation: slide-in 0.4s ease;
 }

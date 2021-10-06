@@ -45,7 +45,7 @@ function sendAllLinks(user) {
   if (!user) {
     data = db.prepare(`SELECT * FROM links;`).all();
   } else {
-    data = db.prepare(`SELECT * FROM links WHERE owner = ?;`).all(user);
+    data = db.prepare(`SELECT id, link, uses FROM links WHERE owner = ?;`).all(user);
   }
   return data || [];
 }
