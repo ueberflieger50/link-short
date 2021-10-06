@@ -1,7 +1,9 @@
-.user-control {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
+@media (min-width: 700px) { 
+  .user-control {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
 }
 #url-list {
   display: grid;

@@ -45,7 +45,7 @@
         <div class="modal">
             <div class="modal-content">
                 <h1 class="modal-title">Register / Login</h1>
-                <p class="user-error">{{ user.error }}</p>
+                <p class="user-error" v-if="user.error">{{ user.error }}</p>
                 <form @submit.prevent="" class="user-form">
             
                         <label for="username">Username</label>
