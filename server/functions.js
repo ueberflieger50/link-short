@@ -13,7 +13,10 @@ function checkAuthenticated(req, res, next) {
 }
 
 function checkAdminAuthenticated(req, res, next) {
-  if (req.isAuthenticated() && req.user.role === "admin") {
+  if (
+    req.isAuthenticated() &&
+    (req.user.role === "admin" || req.user.role === "initAdmin")
+  ) {
     return next();
   }
   return res.sendStatus(401);
@@ -22,5 +25,5 @@ function checkAdminAuthenticated(req, res, next) {
 module.exports = {
   checkNotAuthenticated,
   checkAuthenticated,
-  checkAdminAuthenticated
+  checkAdminAuthenticated,
 };

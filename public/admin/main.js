@@ -4,6 +4,7 @@ const app = {
       formData: {},
       shortUrl: null,
       urls: null,
+      users: null,
       user: {
         isLoggedIn: null,
       },
@@ -69,7 +70,9 @@ const app = {
           location.reload();
         })
         .catch((err) => {
-          alert("Error whyle trying to log out. The error was loged to the console");
+          alert(
+            "Error whyle trying to log out. The error was loged to the console"
+          );
           console.log(err);
         });
       delete this.user.username;
@@ -84,6 +87,46 @@ const app = {
           } else {
             this.user.isLoggedIn = false;
           }
+        });
+    },
+    getAllUsers: function () {
+      fetch("/api/user/all")
+        .then((res) => res.json())
+        .then((res) => {
+          this.users = res;
+        });
+    },
+    removeUser: function (id, username) {
+      if (confirm("🗑 Are you sure you want to delete the user: " + username)) {
+        if (username === this.user.username) {
+          fetch(`/api/user/remove/${id}`, { 
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ logout: true })
+          }).then(() => {
+            location.reload();
+          });
+        } else {
+          fetch(`/api/user/remove/${id}`, { method: "DELETE" })
+            .then((res) => res.json())
+            .then((res) => {
+              this.users = res;
+            });
+        }
+      }
+    },
+    alterUser: function (id) {
+      fetch(`/api/user/alter/${id}`, { method: "PATCH" })
+        .then((res) => res.json())
+        .then((res) => {
+          res.forEach((elem) => {
+            if (elem.username === this.user.username && elem.role === "user") {
+              location.reload();
+            }
+          });
+          this.users = res;
         });
     },
   },

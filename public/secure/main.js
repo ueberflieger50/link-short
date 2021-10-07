@@ -19,7 +19,6 @@ const app = {
   },
   methods: {
     createNewLink: function () {
-      // console.log(JSON.stringify(this.formData));
       fetch("/api/new", {
         method: "POST",
         headers: {
@@ -87,6 +86,9 @@ const app = {
           }
         });
     },
+    entryUrl(id) {
+      return window.location.origin + "/" + id;
+    }
   },
 };
 Vue.createApp(app).mount("body");

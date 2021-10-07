@@ -49,22 +49,43 @@
                 <pre><a :href="linkUrl">{{ linkUrl }}</a><span @click="copyToClipboard(linkUrl)" title="Copy to clipboard" class="copy-icon">📋</span></pre>
             </div>
         </div>
-        <div class="card" id="url-card">
+        <div class="card list-card">
             <div id="urls">
                 <button id="all" @click="getAll">List All Entries</button>
-                <div id="url-list" v-if="urls">
+                <div class="list-inner" v-if="urls">
                     <div v-for="element in urls" class="list-wrapper">
-                        <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="url-icon">
-                            ❌
-                        </span>
-                        <span title="Go to this Entry" class="url-icon globe">
-                            <a :href="element.id" class="entryLink">
-                                🌐
-                            </a>
-                        </span>
+                        <div class="icons">
+                            <span title="Go to this Entry" class="list-icon primary-icon">
+                                <a :href="element.id" class="entryLink">
+                                    🌐
+                                </a>
+                            </span>
+                            <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="list-icon">
+                                ❌
+                            </span>
+                        </div>
                         <pre>{{ element }}</pre>
                     </div>
                     <pre v-if="urls.length === 0">No Entries Available</pre>
+                </div>
+            </div>
+        </div>
+        <div class="card list-card">
+            <div id="users">
+                <button id="all" @click="getAllUsers">List All Users</button>
+                <div class="list-inner" v-if="users">
+                    <div v-for="element in users" class="list-wrapper">
+                        <div class="icons" v-if="element.role !== 'initAdmin' && element !== users.error">
+                            <span @click="alterUser(element.id)" title="Alter this user (from user to admin of from admin to user)">
+                                🔀
+                            </span>
+                            <span @click="removeUser(element.id, element.username)" title="Delete this user">
+                                ❌
+                            </span>
+                        </div>
+                        <pre>{{ element }}</pre>
+                    </div>
+                    <pre v-if="users.length === 0">No Entries Available</pre>
                 </div>
             </div>
         </div>

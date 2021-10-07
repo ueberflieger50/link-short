@@ -1,9 +1,11 @@
-.user-control {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
+@media (min-width: 700px) { 
+  .user-control {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
 }
-#url-list {
+.list-inner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
   gap: 1em;
@@ -12,13 +14,18 @@
 .list-wrapper {
   position: relative;
 }
-.url-icon {
+.icons {
   position: absolute;
-  right: 0.7em;
+  display: flex;
+  right: 2em;
   top: 0.7em;
   transform: scale(2);
   cursor: pointer;
+
 }
-.globe {
-  right: 3.2em;
+.entryLink {
+  text-decoration: none;
+}
+.list-inner {
+  animation: slide-in 0.4s ease;
 }

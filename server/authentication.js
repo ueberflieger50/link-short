@@ -26,7 +26,7 @@ router.post("/register", functions.checkNotAuthenticated, async (req, res) => {
       } else {
         db.prepare(
           `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`
-        ).run(req.body.username, hashedPassword, "admin");
+        ).run(req.body.username, hashedPassword, "initAdmin");
       }
       res.sendStatus(200);
     } catch (err) {
