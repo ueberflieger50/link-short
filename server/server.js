@@ -4,7 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const minify = require("express-minify");
-const nocache = require('nocache');
+const nocache = require("nocache");
 const db = require("better-sqlite3")("links.db");
 const app = express();
 const port = 3000;
@@ -22,7 +22,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 	"uses"	INTEGER DEFAULT 0,
 	"owner"	INTEGER,
 	PRIMARY KEY("id"),
-  FOREIGN KEY (owner) REFERENCES users(id) -- Hmmm something will come here
+  FOREIGN KEY (owner) REFERENCES users(id) ON DELETE SET NULL
 );`);
 
 app.use(express.json());
@@ -61,7 +61,10 @@ app.use("/auth", authentication);
 // ========================================================================
 
 app.get("/", (req, res) => {
-  if (req.isAuthenticated() && req.user.role === "admin") {
+  if (
+    req.isAuthenticated() &&
+    (req.user.role === "admin" || req.user.role === "initAdmin")
+  ) {
     res.sendFile(path.resolve("../public/admin/index.html"));
   } else if (req.isAuthenticated()) {
     res.sendFile(path.resolve("../public/secure/index.html"));
@@ -70,7 +73,10 @@ app.get("/", (req, res) => {
   }
 });
 app.get("/main.js", (req, res) => {
-  if (req.isAuthenticated() && req.user.role === "admin") {
+  if (
+    req.isAuthenticated() &&
+    (req.user.role === "admin" || req.user.role === "initAdmin")
+  ) {
     res.sendFile(path.resolve("../public/admin/main.js"));
   } else if (req.isAuthenticated()) {
     res.sendFile(path.resolve("../public/secure/main.js"));
@@ -97,6 +103,9 @@ app.get("/:id", (req, res) => {
     res.redirect(redirect.link);
   }
 });
+
+const userapi = require("./user-api");
+app.use("/api/user", userapi);
 
 const api = require("./api");
 app.use("/api", api);

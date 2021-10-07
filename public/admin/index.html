@@ -70,6 +70,25 @@
                 </div>
             </div>
         </div>
+        <div class="card list-card">
+            <div id="users">
+                <button id="all" @click="getAllUsers">List All Users</button>
+                <div class="list-inner" v-if="users">
+                    <div v-for="element in users" class="list-wrapper">
+                        <div class="icons" v-if="element.role !== 'initAdmin' && element !== users.error">
+                            <span @click="alterUser(element.id)" title="Alter this user (from user to admin of from admin to user)">
+                                🔀
+                            </span>
+                            <span @click="removeUser(element.id, element.username)" title="Delete this user">
+                                ❌
+                            </span>
+                        </div>
+                        <pre>{{ element }}</pre>
+                    </div>
+                    <pre v-if="users.length === 0">No Entries Available</pre>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <a href="https://github.com/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
