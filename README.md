@@ -22,7 +22,11 @@ Then go to http://localhost:3000
 - [Create new link](docs/create_new_link.md) : `POST /api/new`
 
 ## Endpoints for Authentication
+- [Create new user](docs/user.md#create_user) : `POST /auth/register`
+- [Login](docs/user.md#login) : `POST /auth/login`
+- [Logout](docs/user.md#logout)
 ### For every user
+- [Get if logged in](docs/user.md#user_status) : `GET /auth/isloggedin/`
 - [Remove user](docs/remove_user.md#user) : `DELETE /api/user/remove/me`
 ### For Admin
 - [List all users](docs/list_users.md) : `GET /api/user/all`
