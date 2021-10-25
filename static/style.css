@@ -98,6 +98,13 @@ button {
 button:hover {
   background-color: var(--primary-hover);
 }
+.danger {
+  background-color: var(--danger);
+  color: var(--white-90);
+}
+.danger:hover {
+  background-color: var(--danger-hover);
+}
 .copy-icon {
   float: right;
   margin: 0;

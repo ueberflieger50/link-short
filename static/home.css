@@ -1,10 +1,3 @@
-.danger {
-  background-color: var(--danger);
-  /* color: var(--white-90); */
-}
-.danger:hover {
-  background-color: var(--danger-hover);
-}
 /* Modal Styles */
 .modal {
   position: fixed;

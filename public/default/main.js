@@ -96,7 +96,7 @@ const app = {
         })
           .then((res) => {
             this.closeModal();
-            document.querySelector("#login").focus();
+            location.reload();
           })
           .catch((err) => {
             alert(

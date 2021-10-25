@@ -50,13 +50,20 @@ function sendAllLinks(user) {
   return data || [];
 }
 
-router.delete("/remove/:id", functions.checkAuthenticated, (req, res) => {
-  db.prepare(`DELETE FROM links WHERE id=?`).run(req.params.id);
-  if (req.isAuthenticated() && req.user.role === "admin") {
+router.delete("/remove/:id", functions.checkAuthenticated, async (req, res) => {
+  if (req.user.role === "admin" || req.user.role === "initAdmin") {
+    db.prepare(`DELETE FROM links WHERE id=?`).run(req.params.id);
     res.send(sendAllLinks());
   } else {
-    res.send(sendAllLinks(req.user.id));
+    let link = await db.prepare(`SELECT * FROM links WHERE id=?`).get(req.params.id);
+    if(link.owner === req.user.id) {
+      db.prepare(`DELETE FROM links WHERE id=?`).run(req.params.id);
+      res.send(sendAllLinks(req.user.id));
+    } else {
+      res.sendStatus(401);
+    }
   }
+
 });
 
 router.get("/all", functions.checkAdminAuthenticated, (req, res) => {

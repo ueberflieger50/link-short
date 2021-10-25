@@ -34,6 +34,11 @@ router.patch("/alter/:id", functions.checkAdminAuthenticated, (req, res) => {
 
 router.delete("/remove/:id", functions.checkAuthenticated, (req, res) => {
 	// If someone sees this and knows a better was to do it pleas go ahead and open an issue or pr.
+  let checkMe = false;
+  if(req.params.id === "me") {
+    req.params.id = req.user.id;
+    checkMe = true;
+  }
 	if(req.body.logout === true) {
 		let userId = req.user.id;
 		req.logOut();
@@ -47,7 +52,7 @@ router.delete("/remove/:id", functions.checkAuthenticated, (req, res) => {
   } else if (req.user?.role === "admin" || req.user?.role === "initAdmin") {
     db.prepare(`DELETE FROM users WHERE id=?`).run(req.params.id);
     res.send(db.prepare("SELECT id, username, role FROM users").all());
-  } else if (req.user?.id === req.params.id) {
+  } else if (req.user?.id === req.params.id || checkMe) {
     db.prepare(`DELETE FROM users WHERE id=?`).run(req.params.id);
 		res.sendStatus(200);
   } else {

@@ -14,21 +14,21 @@ router.get("/isloggedin", (req, res) => {
   }
 });
 
-router.post("/register", functions.checkNotAuthenticated, async (req, res) => {
+router.post("/register", functions.checkNotAuthenticated, async (req, res, next) => {
   const usernames = db.prepare(`SELECT username FROM users WHERE username = ?`).get(req.body.username);
   if (usernames === undefined) {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       if (db.prepare(`SELECT * FROM users LIMIT 1`).all().length > 0) {
-        db.prepare(
+        await db.prepare(
           `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`
         ).run(req.body.username, hashedPassword, "user");
       } else {
-        db.prepare(
+        await db.prepare(
           `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`
         ).run(req.body.username, hashedPassword, "initAdmin");
       }
-      res.sendStatus(200);
+      next();
     } catch (err) {
       console.warn(err);
       res.sendStatus(500);
@@ -36,6 +36,8 @@ router.post("/register", functions.checkNotAuthenticated, async (req, res) => {
   } else {
     res.send("User already exists");
   }
+}, passport.authenticate("local"), (req, res) => {
+  res.sendStatus(202);
 });
 
 router.post(
