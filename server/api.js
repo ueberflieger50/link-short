@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("better-sqlite3")("links.db");
+const db = require("better-sqlite3")("./data/links.db");
 
 const functions = require("./functions");
 
