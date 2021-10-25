@@ -1,15 +1,45 @@
 # link-short
 A simple easy to deploy Link Shorter using express.js as the webserver, passport.js for user authentication and vue.js for the frontend.  
 ![Screenshot](static/sample.png)
-# Usage
-1. Install dependencies
+# Docker
+1. Change the environment variable in the `Dockerfile` (Optional)
+2. Build the Docker image
 ```
-npm install --production
+docker build -t link-short .
+```
+3. Run the Docker image
+## Without envirement variables configured
+```
+docker run -d --name link-short \
+ -e SESSION_SECRET=[your_session_secret] \
+ -v link-short:/link-short/data/ \
+ -p 3000:3000 \
+ --restart unless-stopped \
+ link-short
+```
+## With envirement variables configured
+```
+docker run -d --name link-short \
+ -p 3000:3000 \
+ -v link-short:/link-short/data/ \
+ --restart unless-stopped \
+ link-short
+```
+# Manual Install
+1. Install dependencies
+	- For production
+```
+npm ci
+```
+	- For development
+```
+npm install
 ```
 2. Configure the .env fille in the server directory (A sample is provided as `.env.sample`)
 ```
-SESSION_SECRET=Your-Session-Secret
+cp server/.env.sample server/.env
 ```
+After copying the sample file don't forget to configure it
 3. Start the server (make shure you are in the home directory of the application)
 ```
 npm start
