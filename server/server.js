@@ -5,7 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const minify = require("express-minify");
 const nocache = require("nocache");
-const db = require("better-sqlite3")("links.db");
+const db = require("better-sqlite3")("./data/links.db");
 const app = express();
 const port = 3000;
 

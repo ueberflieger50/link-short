@@ -4,5 +4,5 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 # ENV SESSION_SECRET=Your-Session-Secret
-VOLUME [ "/link-short/data" ]
+VOLUME [ "/link-short/server/data" ]
 CMD ["npm", "start"]

@@ -12,7 +12,7 @@ docker build -t link-short .
 ```
 docker run -d --name link-short \
  -e SESSION_SECRET=[your_session_secret] \
- -v link-short:/link-short/data/ \
+ -v link-short:/link-short/server/data/ \
  -p 3000:3000 \
  --restart unless-stopped \
  link-short
@@ -21,7 +21,7 @@ docker run -d --name link-short \
 ```
 docker run -d --name link-short \
  -p 3000:3000 \
- -v link-short:/link-short/data/ \
+ -v link-short:/link-short/server/data/ \
  --restart unless-stopped \
  link-short
 ```
