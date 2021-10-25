@@ -27,7 +27,6 @@ db.exec(`CREATE TABLE IF NOT EXISTS "links" (
 
 app.use(express.json());
 app.use(minify());
-app.use(nocache());
 
 // ======================= User Authentication ============================
 app.use(
@@ -60,7 +59,7 @@ app.use("/auth", authentication);
 
 // ========================================================================
 
-app.get("/", (req, res) => {
+app.get("/", nocache(), (req, res) => {
   if (
     req.isAuthenticated() &&
     (req.user.role === "admin" || req.user.role === "initAdmin")
@@ -72,7 +71,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.resolve("../public/default/index.html"));
   }
 });
-app.get("/main.js", (req, res) => {
+app.get("/main.js", nocache(), (req, res) => {
   if (
     req.isAuthenticated() &&
     (req.user.role === "admin" || req.user.role === "initAdmin")
