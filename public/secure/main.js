@@ -18,7 +18,7 @@ const app = {
     this.getLoggedIn();
   },
   methods: {
-    createNewLink: function () {
+    createNewLink() {
       fetch("/api/new", {
         method: "POST",
         headers: {
@@ -33,14 +33,14 @@ const app = {
           delete this.formData.customId;
         });
     },
-    getMy: function () {
+    getMy() {
       fetch("/api/my")
         .then((res) => res.json())
         .then((res) => {
           this.urls = res;
         });
     },
-    copyToClipboard: function (text) {
+    copyToClipboard(text) {
       if (!navigator.clipboard) {
         alert("Sorry, but your Browser dosent support Clipboard API");
         return;
@@ -52,7 +52,7 @@ const app = {
         }
       );
     },
-    deleteEntry: function (id, link) {
+    deleteEntry(id, link) {
       if (confirm("🗑 Are you sure you want to delete the link to: " + link)) {
         fetch(`/api/remove/${id}`, { method: "DELETE" })
           .then((res) => res.json())
@@ -61,7 +61,7 @@ const app = {
           });
       }
     },
-    logout: function () {
+    logout() {
       fetch("/auth/logout", {
         method: "DELETE",
       })
@@ -69,12 +69,27 @@ const app = {
           location.reload();
         })
         .catch((err) => {
-          alert("Error whyle trying to log out. The error was loged to the console");
+          alert(
+            "Error whyle trying to log out. The error was loged to the console"
+          );
           console.log(err);
         });
       delete this.user.username;
     },
-    getLoggedIn: function () {
+    deleteMyUser() {
+      if (confirm("🗑 Are you sure you want to delete your account")) {
+        fetch(`/api/user/remove/me`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ logout: true }),
+        }).then(() => {
+          location.reload();
+        });
+      }
+    },
+    getLoggedIn() {
       fetch("/auth/isloggedin")
         .then((res) => res.json())
         .then((res) => {
@@ -88,7 +103,7 @@ const app = {
     },
     entryUrl(id) {
       return window.location.origin + "/" + id;
-    }
+    },
   },
 };
 Vue.createApp(app).mount("body");
