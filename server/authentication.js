@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const db = require("better-sqlite3")("links.db");
+const db = require("better-sqlite3")("./data/links.db");
 const bcrypt = require("bcrypt");
 
 const functions = require("./functions");
