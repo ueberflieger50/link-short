@@ -63,7 +63,7 @@ export default {
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {},
 	serverMiddleware: [
-		// { path: '/middleware', handler: '~/server/api.js' },
-		// { path: '/api/auth', handler: '~/server/authentication.js' },
+		{ path: '/api/', handler: '~/server/api.js' },
+		{ path: '/api/auth', handler: '~/server/authentication.js' },
 	],
 }

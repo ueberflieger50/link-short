@@ -1,8 +1,5 @@
 <template>
-	<form
-		class="flex flex-col mt-6 w-64"
-		@submit.prevent="submitFunction(userInfo)"
-	>
+	<form class="flex flex-col mt-6 w-64 relative" @submit.prevent="validateForm">
 		<div class="relative">
 			<input
 				id="username"
@@ -39,7 +36,9 @@
 			/>
 			<label for="repPassword">Repeat Password</label>
 		</div>
-		<span v-if="!passwordMatch" class="text-red-600 absolute"
+		<span
+			v-if="!passwordMatch && registerTrue"
+			class="text-red-600 absolute bottom-12"
 			>The passwords do not match.</span
 		>
 		<button
@@ -80,7 +79,8 @@ export default {
 		passwordMatch() {
 			if (
 				this.userInfo.password === this.userInfo.repPassword ||
-				(this.userInfo.password === '' && this.userInfo.repPassword === '')
+				this.userInfo.password === '' ||
+				this.userInfo.repPassword === ''
 			) {
 				return true;
 			} else {
@@ -88,27 +88,16 @@ export default {
 			}
 		},
 	},
+	methods: {
+		validateForm() {
+			if (this.passwordMatch) {
+				return this.submitFunction(this.userInfo);
+			} else {
+				return "Form is not valid"
+			}
+		},
+	},
 };
 </script>
 
-<style lang="postcss">
-input {
-	@apply focus:outline-none
-					border-gray-400 border-b-2
-					placeholder-transparent
-					h-10
-					w-full;
-}
-label {
-	@apply text-gray-600
-					-top-2.5
-					left-0
-					absolute
-					transition-all
-					text-sm
-					peer-placeholder-shown:text-gray-400
-					peer-placeholder-shown:top-2
-					peer-placeholder-shown:text-lg
-					peer-focus:text-gray-600 peer-focus:-top-2.5 peer-focus:text-sm;
-}
-</style>
+<style></style>

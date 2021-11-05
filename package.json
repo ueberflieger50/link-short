@@ -4,14 +4,13 @@
   "description": "",
   "main": "/server/server.js",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "dev": "npm run initDB && nuxt",
+    "build": "npm run initDB && nuxt build",
+    "start": "npm run initDB && nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js",
-    "old_dev": "cd server && nodemon server.js",
-    "old_start": "cd server && node server.js"
+    "initDB": "node initDB.js"
   },
   "keywords": [],
   "author": "",

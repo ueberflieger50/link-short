@@ -1,7 +1,7 @@
 <template>
 	<main class="flex flex-col items-center">
 		<h1 class="text-4xl">Register</h1>
-		<Form button-text="Register" :submit-function="userRegistration" register-true="true" />
+		<Form button-text="Register" :submit-function="userRegistration" :register-true="true" />
 	</main>
 </template>
 
