@@ -1,9 +1,12 @@
-@media (min-width: 700px) { 
-  .user-control {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
+#admin {
+  font-size: 1rem;
+}
+.user-control {
+  display: flex;
+  align-items: center;
+}
+.user-name {
+  margin: 0;
 }
 .list-inner {
   display: grid;
@@ -26,6 +29,17 @@
 .entryLink {
   text-decoration: none;
 }
+.entryLink {
+  text-decoration: none;
+}
 .list-inner {
   animation: slide-in 0.4s ease;
+}
+@media (min-width: 700px) {
+  .user-control {
+    gap: 2rem;
+  }
+  #admin {
+    font-size: 1.2rem;
+  }
 }

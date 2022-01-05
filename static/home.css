@@ -27,20 +27,19 @@
   z-index: 20;
   border: 1px;
   box-shadow: 0 3px 3px var(--shadow);
-
 }
 .modal-title {
   margin-top: 0;
 }
 /* Login Form Styles */
 .user-error {
-  color: var(--danger)
+  color: var(--danger);
 }
 .user-form {
-  margin-top: 1rem;  
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
 }
-.buttons *{
+.buttons * {
   width: calc(50% - 0.8em);
 }

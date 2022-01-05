@@ -65,7 +65,7 @@ footer {
 }
 :focus-visible {
   outline: none;
-  outline: .1rem solid var(--white-70)
+  outline: 0.1rem solid var(--white-70);
 }
 header {
   color: var(--white-90);
@@ -135,6 +135,7 @@ pre {
   border-radius: 4px;
   padding: 1em;
   margin: 0;
+  font-size: 1.1rem;
   word-wrap: break-word;
   white-space: pre-wrap;
   height: calc(100% - 2em);
@@ -148,6 +149,15 @@ footer a {
 }
 pre > a {
   color: var(--info);
+}
+#header-link > h1 {
+  font-size: 1em;
+}
+#made-by {
+  font-size: 1rem;
+}
+footer > p {
+  margin: 0.2em 0 0.2em 0;
 }
 @media (min-width: 700px) {
   .link-form {
@@ -173,6 +183,15 @@ pre > a {
   }
   input {
     width: initial;
+  }
+  #header-link > h1 {
+    font-size: 2em;
+  }
+  #made-by {
+    font-size: 1.2rem;
+  }
+  footer > p {
+    margin: 1em 0 1em 0;
   }
 }
 @keyframes slide-in {

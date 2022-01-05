@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/auth.css">
     <link rel="shortcut icon" href="/static/favicon.svg" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.20/dist/vue.global.prod.js"></script>
+    <script src="/static/vue.global.prod.js"></script>
     <script src="main.js" defer></script>
     <title>Link-Shortener</title>
 </head>
@@ -50,23 +50,66 @@
             </div>
         </div>
         <div class="card list-card">
-            <div id="urls">
-                <button id="all" @click="getAll">List All Entries</button>
-                <div class="list-inner" v-if="urls">
-                    <div v-for="element in urls" class="list-wrapper">
+            <div id="myUrls">
+                <button id="my" @click="getMy">List My Entries</button>
+                <div class="list-inner" v-if="my">
+                    <div v-for="element in my" class="list-wrapper">
                         <div class="icons">
                             <span title="Go to this Entry" class="list-icon primary-icon">
                                 <a :href="element.id" class="entryLink">
                                     🌐
                                 </a>
                             </span>
-                            <span @click="deleteEntry(element.id, element.link)" title="Delete this entry" class="list-icon">
+                            <span @click="deleteEntry(element.id, element.link)" title="Delete this entry"
+                                class="list-icon">
                                 ❌
                             </span>
                         </div>
                         <pre>{{ element }}</pre>
                     </div>
-                    <pre v-if="urls.length === 0">No Entries Available</pre>
+                    <pre v-if="my.length === 0">No Entries Available</pre>
+                </div>
+            </div>
+        </div>
+        <div class="card list-card">
+            <div id="allUrls">
+                <button id="all" @click="getAll">List All Entries</button>
+                <div class="list-inner" v-if="all">
+                    <div v-for="element in all" class="list-wrapper">
+                        <div class="icons">
+                            <span title="Go to this Entry" class="list-icon primary-icon">
+                                <a :href="element.id" class="entryLink">
+                                    🌐
+                                </a>
+                            </span>
+                            <span @click="deleteEntry(element.id, element.link)" title="Delete this entry"
+                                class="list-icon">
+                                ❌
+                            </span>
+                        </div>
+                        <pre>{{ element }}</pre>
+                    </div>
+                    <pre v-if="all.length === 0">No Entries Available</pre>
+                </div>
+            </div>
+        </div>
+        <div class="card list-card">
+            <div id="users">
+                <button id="all" @click="getAllUsers">List All Users</button>
+                <div class="list-inner" v-if="users">
+                    <div v-for="element in users" class="list-wrapper">
+                        <div class="icons" v-if="element.role !== 'initAdmin' && element !== users.error">
+                            <span @click="alterUser(element.id)"
+                                title="Alter this user (from user to admin of from admin to user)">
+                                🔀
+                            </span>
+                            <span @click="removeUser(element.id, element.username)" title="Delete this user">
+                                ❌
+                            </span>
+                        </div>
+                        <pre>{{ element }}</pre>
+                    </div>
+                    <pre v-if="users.length === 0">No Entries Available</pre>
                 </div>
             </div>
         </div>
@@ -94,7 +137,7 @@
         <a href="https://github.com/ueberflieger50/link-short" target="_blank" rel="autor, noreferrer">
             <p id="made-by">Made with ❤️ by Ueberflieger</p>
         </a>
-        <p>
+        <p id="admin">
             You are logged in as an Admin
         </p>
     </footer>
