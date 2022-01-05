@@ -32,6 +32,7 @@ app.use(minify());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
     resave: false,
     saveUninitialized: false,
   })
