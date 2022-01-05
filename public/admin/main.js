@@ -3,7 +3,8 @@ const app = {
     return {
       formData: {},
       shortUrl: null,
-      urls: null,
+      all: null,
+      my: null,
       users: null,
       user: {
         isLoggedIn: null,
@@ -38,7 +39,14 @@ const app = {
       fetch("/api/all")
         .then((res) => res.json())
         .then((res) => {
-          this.urls = res;
+          this.all = res;
+        });
+    },
+    getMy: function () {
+      fetch("/api/my")
+        .then((res) => res.json())
+        .then((res) => {
+          this.my = res;
         });
     },
     copyToClipboard: function (text) {
